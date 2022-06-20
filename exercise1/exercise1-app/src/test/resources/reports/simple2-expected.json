@@ -1,0 +1,23 @@
+[
+   {
+      "ip":"192.168.174.100",
+      "nRequests":3,
+      "percentageRequests":37,
+      "totalBytes":1025788,
+      "percentageBytes":8
+   },
+   {
+      "ip":"192.168.174.101",
+      "nRequests":3,
+      "percentageRequests":37,
+      "totalBytes":3467688,
+      "percentageBytes":27
+   },
+   {
+      "ip":"192.168.174.102",
+      "nRequests":2,
+      "percentageRequests":25,
+      "totalBytes":8046466,
+      "percentageBytes":64
+   }
+]

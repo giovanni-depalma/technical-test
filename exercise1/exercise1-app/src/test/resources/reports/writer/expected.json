@@ -1,0 +1,16 @@
+[
+   {
+      "ip":"ip1",
+      "nRequests":1,
+      "percentageRequests":2,
+      "totalBytes":3,
+      "percentageBytes":4
+   },
+   {
+      "ip":"ip2",
+      "nRequests":11,
+      "percentageRequests":22,
+      "totalBytes":33,
+      "percentageBytes":44
+   }
+]
