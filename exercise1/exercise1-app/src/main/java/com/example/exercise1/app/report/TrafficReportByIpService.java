@@ -24,9 +24,8 @@ public class TrafficReportByIpService {
 	}
 
 
-    public RequestStatistic getTotalBytes(Collection<Request> requests){
-        long bytes = requests.stream().mapToLong(Request::bytes).sum();
-        return new RequestStatistic(bytes);
+    public long getTotalBytes(Collection<Request> requests){
+        return requests.stream().mapToLong(Request::bytes).sum();
     }
 
     public int pecentage(int part, int total) {
@@ -40,14 +39,16 @@ public class TrafficReportByIpService {
     public void doReport(Path pathRequests, long from, long to, Consumer<IpAddrReport> consumer){
     	try(Stream<Request> request = requestRepository.getAll(pathRequests)){
     		log.log(Level.FINE, "starting report stream, from: {0}, to: {1}", new Object[] { from, to });
+    		final int unknownPercentage = 0;
             var result = request
             .filter(r -> r.timestamp() >= from && r.timestamp() <= to)
             .filter(r -> HttpStatus.OK.equals(r.status()))
             .collect(Collectors.groupingBy(Request::remoteAddr))
             .entrySet().stream().map(entry -> {
-                var rList = entry.getValue();
-                var statistic = getTotalBytes(rList);
-                return new IpAddrReport(entry.getKey(), rList.size(), 0, statistic.bytes(), 0);
+                var entryRequestList = entry.getValue();
+                var entryTotalBytes = getTotalBytes(entryRequestList);
+                //percentage is still unknown
+                return new IpAddrReport(entry.getKey(), entryRequestList.size(), unknownPercentage, entryTotalBytes,unknownPercentage);
             }).toList();
             var totalRequest = result.stream().mapToInt(IpAddrReport::nRequests).sum();
             var totalBytes = result.stream().mapToLong(IpAddrReport::totalBytes).sum();
@@ -57,7 +58,4 @@ public class TrafficReportByIpService {
     	}
     }
 
-    public record RequestStatistic(long bytes){
-
-    }
 }
