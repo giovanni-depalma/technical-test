@@ -28,12 +28,12 @@ public class TrafficReportByIpService {
     }
 
     public int pecentage(long part, long total) {
-        return (int) (part * 100 / total);
+        return (int)(part * 100 / total);
     }
 
     
     public void doReport(Stream<Request> request, long from, long to, Consumer<IpAddrReport> consumer){
-    	log.log(Level.FINE, "starting report stream, from: {1}, to: {2}", new Object[] { from, to });
+    	log.log(Level.FINE, "starting report stream, from: {0}, to: {1}", new Object[] { from, to });
         var result = request
         .filter(r -> r.timestamp() >= from && r.timestamp() <= to)
         .filter(r -> HttpStatus.OK.equals(r.status()))

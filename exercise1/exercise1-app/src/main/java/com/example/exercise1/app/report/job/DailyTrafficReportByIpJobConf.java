@@ -10,7 +10,7 @@ public record DailyTrafficReportByIpJobConf(Path requestsPath, Path reportPath, 
 		int scheduledInSeconds) {
 
 	private static final int DEFAULT_SCHEDULED_IN_SECONDS = 10;
-	private static final OutputMode DEFAULT_OUTPUT_MODE = OutputMode.JSON;
+	private static final OutputMode DEFAULT_OUTPUT_MODE = OutputMode.CSV;
 	private static final String DEFAULT_BASE_PATH = "";
 
 	public static class Builder {

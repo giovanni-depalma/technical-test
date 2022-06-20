@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import com.example.exercise1.app.request.HttpStatus;
 import com.example.exercise1.app.request.Request;
+import com.example.exercise1.app.request.RequestFakeBuilder;
 import com.example.exercise1.app.test.util.faker.Faker;
 
 public class TrafficReportByIpServiceTest {
@@ -21,7 +22,7 @@ public class TrafficReportByIpServiceTest {
     private Date from;
     private Date to;
     private TrafficReportByIpService service;
-    private RequestBuilder builder;
+    private RequestFakeBuilder builder;
 
     @BeforeEach
     private void init(){
@@ -30,7 +31,7 @@ public class TrafficReportByIpServiceTest {
         var validDayTo = 4;
         from = faker.date().past(validDayFrom, validDayTo, TimeUnit.DAYS);
         to = faker.date().past(validDayTo, TimeUnit.DAYS);
-        builder = new RequestBuilder(from, to);
+        builder = new RequestFakeBuilder(from, to);
         service = new TrafficReportByIpService();
     }
     

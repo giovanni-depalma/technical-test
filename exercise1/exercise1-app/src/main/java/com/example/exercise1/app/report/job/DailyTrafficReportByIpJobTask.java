@@ -17,7 +17,7 @@ public class DailyTrafficReportByIpJobTask implements Runnable{
 	private DailyTrafficReportByIpJobConf configuration;
 	private TrafficReportController controller;
 	
-	public DailyTrafficReportByIpJobTask(TrafficReportController controller, DailyTrafficReportByIpJobConf configuration) {
+	protected DailyTrafficReportByIpJobTask(TrafficReportController controller, DailyTrafficReportByIpJobConf configuration) {
 		this.configuration = configuration;
 		this.controller = controller;
 	}
