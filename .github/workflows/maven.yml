@@ -5,6 +5,8 @@ name: Java CI with Maven
 
 on:
   push:
+    paths:
+      - exercise1
   pull_request:
     branches: [ main ]
 
