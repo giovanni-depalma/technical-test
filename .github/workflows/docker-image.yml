@@ -3,6 +3,8 @@ name: Docker build
 
 on:
   push:
+    paths:
+      - exercise1
   pull_request:
     branches: [ main ]
 
