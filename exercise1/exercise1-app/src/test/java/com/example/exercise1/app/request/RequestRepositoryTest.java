@@ -3,8 +3,8 @@ package com.example.exercise1.app.request;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,11 +24,11 @@ public class RequestRepositoryTest {
 
 	@Test
 	public void getAll() throws URISyntaxException {
-		URI uri = ResourceLoader.getURI("requests/simple.log");
+		var path = ResourceLoader.getPath("requests/simple.log");
 		var expected = List.of(new Request(1655552184l, 2453l, HttpStatus.OK, "192.168.174.100"),
 				new Request(1655550184l, 122453l, HttpStatus.BAD_REQUEST, "192.168.174.101"),
 				new Request(1655552185l, 1023233l, HttpStatus.OK, "192.168.174.100"));
-		var actual = service.getAll(uri).toList();
+		var actual = service.getAll(path).toList();
 		assertEquals(expected, actual);
 	}
 	
@@ -42,8 +42,8 @@ public class RequestRepositoryTest {
 	@Test
 	public void getAllNotValidUri() {
 		assertThrows(ServiceException.class, ()->{
-			URI uri = new URI("xxxxx");
-			service.getAll(uri);
+			var path = Path.of("xxxxx");
+			service.getAll(path);
 		});
 	}
 	
@@ -51,8 +51,8 @@ public class RequestRepositoryTest {
 	@Test
 	public void getAllNotValidCsv() {
 		assertThrows(ServiceException.class, ()->{
-			URI uri = ResourceLoader.getURI("requests/not-valid.log");
-			service.getAll(uri).toList();
+			var path = ResourceLoader.getPath("requests/not-valid.log");
+			service.getAll(path).toList();
 		});
 	}
 }

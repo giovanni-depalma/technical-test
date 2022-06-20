@@ -25,22 +25,45 @@ public class DailyTrafficReportByIpJobTask implements Runnable{
 	@Override
 	public void run() {
 		try {
-			Path reportPath = configuration.reportPath();
-			if(Files.exists(reportPath)) {
-				log.fine(MessageFormat.format("report already generated in path: {0}", reportPath));
-				//Do nothing
-			}
-			else {
-				doReport(reportPath);
+			if(existRequestPath()) {
+				Path reportPath = configuration.reportPath();
+				if(Files.exists(reportPath)) {
+					log.log(Level.FINE,"report already generated in path: {0}", reportPath);
+					//Do nothing
+				}
+				else {
+					Path reportPathTmp = configuration.reportPathTmp();
+					checkParentPaths(reportPath, reportPathTmp);
+					doReport(reportPath, reportPathTmp);
+				}
 			}
 		} catch (Exception e) {
 			log.log(Level.SEVERE, "error during task {0}", e);
 		}
 	}
 	
-	private void doReport(Path reportPath) throws IOException {
+	private boolean existRequestPath() {
+		Path requestsPath = configuration.requestsPath();
+		if(!Files.exists(requestsPath)) {
+			log.log(Level.FINE,"request paths not present: {0}", requestsPath);
+			return false;
+		}
+		else
+			return true;
+	}
+	
+	private void checkParentPaths(Path... paths) throws IOException {
+		for(Path path: paths) {
+			Path parent = path.getParent();
+			if(!Files.exists(parent)) {
+				log.log(Level.FINE,"creating path: {0}", parent);
+				Files.createDirectories(parent);
+			}
+		}
+	}
+	
+	private void doReport(Path reportPath, Path reportPathTmp) throws IOException {
 		log.info(MessageFormat.format("generating report in path: {0}", reportPath));
-		Path reportPathTmp = configuration.reportPathTmp();
 		Files.deleteIfExists(reportPathTmp);
 		doReportTmp(reportPathTmp);
 		Files.move(reportPathTmp, reportPath);
@@ -51,7 +74,7 @@ public class DailyTrafficReportByIpJobTask implements Runnable{
 		try(BufferedWriter writer = Files.newBufferedWriter(reportPathTmp, Charset.forName("UTF-8"))){
 			long from = 0;
 			long to = Long.MAX_VALUE;//include any values inside requests log
-			controller.report(configuration.requestsPath().toUri(), from, to, configuration.mode(), writer);
+			controller.report(configuration.requestsPath(), from, to, configuration.mode(), writer);
 		}
 	}
 

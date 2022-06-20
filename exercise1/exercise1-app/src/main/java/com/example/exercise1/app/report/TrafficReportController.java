@@ -1,7 +1,7 @@
 package com.example.exercise1.app.report;
 
 import java.io.Writer;
-import java.net.URI;
+import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +21,7 @@ public class TrafficReportController {
 		this.reportService = reportService;
 	}
 
-	public void report(URI requests, long from, long to, OutputMode mode, Writer writer) {
+	public void report(Path requests, long from, long to, OutputMode mode, Writer writer) {
 		log.log(Level.FINE, "report, requests: {0}, from: {1}, to: {2}, mode: {3}", new Object[] {requests, from, to, mode});
 		ReportWriter reportWriter = ReportFactory.getReportWriter(mode, writer);
 		reportWriter.start();

@@ -39,7 +39,7 @@ public record DailyTrafficReportByIpJobConf(Path requestsPath, Path reportPath, 
 			String reportPathWithExt = reportPath + "."+outputMode.toLowerCase(); 
 			
 			return new DailyTrafficReportByIpJobConf(buildPath(basePath, requestPath), buildPath(basePath, reportPathWithExt),
-					buildPath(basePath, reportPathTmp), OutputMode.valueOf(outputMode), scheduledInSeconds);
+					buildPath(basePath, reportPathTmp), OutputMode.valueOf(outputMode.toUpperCase()), scheduledInSeconds);
 		}
 
 		private Path buildPath(String basePath, String other) throws URISyntaxException {

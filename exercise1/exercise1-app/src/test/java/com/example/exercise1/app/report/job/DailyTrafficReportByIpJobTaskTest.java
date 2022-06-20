@@ -90,4 +90,25 @@ public class DailyTrafficReportByIpJobTaskTest {
 		service = new DailyTrafficReportByIpJobTask(controller, configuration);
 		service.run();
 	}
+	
+	@Test
+	public void testNoRequestPath() throws Exception {
+		OutputMode mode = OutputMode.CSV;
+		Path requestsPath = Path.of("not-present");
+		DailyTrafficReportByIpJobConf configuration = new DailyTrafficReportByIpJobConf(requestsPath, reportPath,
+				reportPathTmp, mode, scheduledInSeconds);
+		service = new DailyTrafficReportByIpJobTask(controller, configuration);
+		service.run();
+	}
+	
+	@Test
+	public void testNoReportParentDir() throws Exception {
+		OutputMode mode = OutputMode.CSV;
+		reportPath = tempDir.resolve("not-present/reportPath");
+		reportPathTmp = tempDir.resolve("not-present/reportPath.tmp");
+		DailyTrafficReportByIpJobConf configuration = new DailyTrafficReportByIpJobConf(requestsPath, reportPath,
+				reportPathTmp, mode, scheduledInSeconds);
+		service = new DailyTrafficReportByIpJobTask(controller, configuration);
+		service.run();
+	}
 }

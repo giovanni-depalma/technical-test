@@ -1,6 +1,6 @@
 package com.example.exercise1.app.request;
 
-import java.net.URI;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -10,13 +10,13 @@ import com.example.exercise1.lib.csv.CsvReader;
 
 public class RequestRepository {
 	
-	public Stream<Request> getAll(URI uri) {
-		if (uri == null)
-            throw new ServiceException("Missing uri");
+	public Stream<Request> getAll(Path path) {
+		if (path == null)
+            throw new ServiceException("Missing path");
 		try{
-			return new CsvReader(Csv.SEMI_COLON).stream(uri).map(this::parseRow);
+			return new CsvReader(Csv.SEMI_COLON).stream(path).map(this::parseRow);
 		} catch (Exception e) {
-			throw new ServiceException("problem reading uri: "+uri, e);
+			throw new ServiceException("problem reading path: "+path, e);
 		}
 
 	}

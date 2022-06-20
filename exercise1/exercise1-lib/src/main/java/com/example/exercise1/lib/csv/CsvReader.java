@@ -1,7 +1,6 @@
 package com.example.exercise1.lib.csv;
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
@@ -22,8 +21,10 @@ public class CsvReader {
 		this.delimiter = delimiter;
 	}
 	
-	public Stream<String[]> stream(URI uri) throws IOException{
-		return Files.lines(Path.of(uri)).map(line -> line.split(delimiter));
+	public Stream<String[]> stream(Path path) throws IOException{
+		try(Stream<String[]> stream = Files.lines(path).map(line -> line.split(delimiter))){
+			return stream;
+		}
 	}
 
 }

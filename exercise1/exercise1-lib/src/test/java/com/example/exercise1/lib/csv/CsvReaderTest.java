@@ -27,7 +27,7 @@ public class CsvReaderTest {
 		var expected = List.of(new String[] {"month", "declared", "spring", "wave", "fresh", "somehow"},
 				new String[] {"bat", "sometime","began","successful","stay","neighbor"},
 				new String[] {"modern","month","everyone","meat","effect","applied"});
-		var actual = service.stream(ResourceLoader.getURI("csv/simple.csv")).toList();
+		var actual = service.stream(ResourceLoader.getPath("csv/simple.csv")).toList();
 		assertEquals(expected.size(), actual.size());
 		for(int i = 0; i < expected.size(); i++) {
 			assertArrayEquals(expected.get(i), actual.get(i));
@@ -36,7 +36,7 @@ public class CsvReaderTest {
 	
 	@Test
 	public void emptyTest() throws IOException, URISyntaxException {
-		var actual = service.stream(ResourceLoader.getURI("csv/empty.csv")).toList();
+		var actual = service.stream(ResourceLoader.getPath("csv/empty.csv")).toList();
 		assertTrue(actual.isEmpty());
 	}
 	

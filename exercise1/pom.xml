@@ -4,7 +4,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>exercise1</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -12,6 +12,7 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<junit.version>5.8.2</junit.version>
+		<revision>1.0.0-SNAPSHOT</revision>
 	</properties>
 
 

@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+    exercise-app:
+        build: .
+        container_name: exercise-app
+        environment:
+            BASE_PATH: /
+            OUTPUT_MODE: JSON
+        volumes:
+           - ./exercise1-app/logfiles/requests.log:/logfiles/requests.log:ro
+           - ./exercise1-app/reports:/reports
