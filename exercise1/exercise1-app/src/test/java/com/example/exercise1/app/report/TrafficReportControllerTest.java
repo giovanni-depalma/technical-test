@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.example.exercise1.app.request.RequestFactory;
 import com.example.exercise1.app.request.RequestRepository;
 import com.example.exercise1.app.test.util.ResourceLoader;
 
@@ -21,9 +22,9 @@ public class TrafficReportControllerTest {
 
 	@BeforeEach
 	private void init() {
-		repository = new RequestRepository();
-		service = new TrafficReportByIpService();
-		controller = new TrafficReportController(repository, service);
+		repository = RequestFactory.buildRepository();
+		service = new TrafficReportByIpService(repository);
+		controller = new TrafficReportController(service);
 	}
 
 	@Test

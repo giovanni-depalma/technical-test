@@ -15,11 +15,11 @@ import com.example.exercise1.app.test.util.ResourceLoader;
 
 public class RequestRepositoryTest {
 	
-	private RequestRepository service;
+	private RequestRepositoryImp service;
 	
 	@BeforeEach
     private void init(){
-		service = new RequestRepository();
+		service = new RequestRepositoryImp();
     }
 
 	@Test

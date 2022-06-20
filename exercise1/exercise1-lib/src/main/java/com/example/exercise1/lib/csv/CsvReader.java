@@ -22,9 +22,7 @@ public class CsvReader {
 	}
 	
 	public Stream<String[]> stream(Path path) throws IOException{
-		try(Stream<String[]> stream = Files.lines(path).map(line -> line.split(delimiter))){
-			return stream;
-		}
+		return Files.lines(path).map(line -> line.split(delimiter));
 	}
 
 }

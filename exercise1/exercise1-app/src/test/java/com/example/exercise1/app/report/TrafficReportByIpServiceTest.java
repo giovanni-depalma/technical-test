@@ -2,11 +2,13 @@ package com.example.exercise1.app.report;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import com.example.exercise1.app.request.HttpStatus;
 import com.example.exercise1.app.request.Request;
 import com.example.exercise1.app.request.RequestFakeBuilder;
+import com.example.exercise1.app.request.RequestRepository;
 import com.example.exercise1.app.test.util.faker.Faker;
 
 public class TrafficReportByIpServiceTest {
@@ -23,6 +26,7 @@ public class TrafficReportByIpServiceTest {
     private Date to;
     private TrafficReportByIpService service;
     private RequestFakeBuilder builder;
+    private RequestRepositoryMock repository;
 
     @BeforeEach
     private void init(){
@@ -32,7 +36,8 @@ public class TrafficReportByIpServiceTest {
         from = faker.date().past(validDayFrom, validDayTo, TimeUnit.DAYS);
         to = faker.date().past(validDayTo, TimeUnit.DAYS);
         builder = new RequestFakeBuilder(from, to);
-        service = new TrafficReportByIpService();
+        repository = new RequestRepositoryMock();
+        service = new TrafficReportByIpService(repository);
     }
     
     @Test
@@ -166,7 +171,8 @@ public class TrafficReportByIpServiceTest {
     
     private List<IpAddrReport> callService(Collection<Request> requests, Date from, Date to){
         var actual = new ArrayList<IpAddrReport>();
-        service.doReport(requests.stream(), from.getTime(), to.getTime(), actual::add);
+        repository.setRequests(requests);
+        service.doReport(null, from.getTime(), to.getTime(), actual::add);
         return actual;
     }
 
@@ -178,5 +184,19 @@ public class TrafficReportByIpServiceTest {
     private List<Request> getRequestAfter(Date date, int size) {
         builder.setDate(new Date(date.getTime() + 1));
         return builder.buildRequest(size);
+    }
+   
+    private class RequestRepositoryMock implements RequestRepository{
+    	private Collection<Request> requests;
+    	
+		public void setRequests(Collection<Request> requests) {
+			this.requests = requests;
+		}
+
+		@Override
+		public Stream<Request> getAll(Path path) {
+			return requests.stream();
+		}
+    	
     }
 }
