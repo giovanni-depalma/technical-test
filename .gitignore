@@ -1,0 +1,7 @@
+*.project
+*.settings
+*.classpath
+*target
+/exercise1/exercise1-app/reports/ipaddr.csv
+/exercise1/exercise1-app/reports/ipaddr.json
+/exercise1/exercise1-app/reports/ipaddr.tmp
