@@ -7,6 +7,9 @@ on:
   push:
     paths:
       - exercise1
+    branches:
+      - master
+      - feature/*
   pull_request:
     branches: [ main ]
 
