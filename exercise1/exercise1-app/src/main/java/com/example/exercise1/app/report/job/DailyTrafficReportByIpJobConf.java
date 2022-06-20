@@ -1,13 +1,12 @@
 package com.example.exercise1.app.report.job;
 
-import java.io.File;
-import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 
 import com.example.exercise1.app.report.OutputMode;
 import com.example.exercise1.lib.config.ConfigHelper;
 
-public record DailyTrafficReportByIpJobConf(URI requestsPath, URI reportPath, URI reportPathTmp, OutputMode mode,
+public record DailyTrafficReportByIpJobConf(Path requestsPath, Path reportPath, Path reportPathTmp, OutputMode mode,
 		int scheduledInSeconds) {
 
 	private static final int DEFAULT_SCHEDULED_IN_SECONDS = 10;
@@ -39,12 +38,12 @@ public record DailyTrafficReportByIpJobConf(URI requestsPath, URI reportPath, UR
 			
 			String reportPathWithExt = reportPath + "."+outputMode.toLowerCase(); 
 			
-			return new DailyTrafficReportByIpJobConf(buildUri(basePath, requestPath), buildUri(basePath, reportPathWithExt),
-					buildUri(basePath, reportPathTmp), OutputMode.valueOf(outputMode), scheduledInSeconds);
+			return new DailyTrafficReportByIpJobConf(buildPath(basePath, requestPath), buildPath(basePath, reportPathWithExt),
+					buildPath(basePath, reportPathTmp), OutputMode.valueOf(outputMode), scheduledInSeconds);
 		}
 
-		private URI buildUri(String basePath, String other) throws URISyntaxException {
-			return new File(basePath + other).toURI();
+		private Path buildPath(String basePath, String other) throws URISyntaxException {
+			return Path.of(basePath + other);
 		}
 	}
 }

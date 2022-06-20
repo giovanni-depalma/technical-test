@@ -2,13 +2,12 @@ package com.example.exercise1.app.report.job;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import com.example.exercise1.app.report.OutputMode;
 import com.example.exercise1.app.report.TrafficReportByIpService;
@@ -20,17 +19,19 @@ public class DailyTrafficReportByIpJobTaskTest {
 	
 	private DailyTrafficReportByIpJobTask service;
 	private TrafficReportController controller;
-	private URI requestsPath;
-	private URI reportPath;
-	private URI reportPathTmp;
+	private Path requestsPath;
+	private Path reportPath;
+	private Path reportPathTmp;
 	private int scheduledInSeconds;
+	
+	@TempDir
+	Path tempDir;
 	
 	@BeforeEach
 	private void init()  throws Exception{
-		requestsPath = ResourceLoader.getURI("reports/job/requests.log");
-		reportPath = File.createTempFile("reportPath", null).toURI();
-		reportPathTmp = File.createTempFile("reportPath", "tmp").toURI();
-		Files.deleteIfExists(Path.of(reportPath));
+		requestsPath = ResourceLoader.getPath("reports/job/requests.log");
+		reportPath = tempDir.resolve("reportPath");
+		reportPathTmp = tempDir.resolve("reportPath.tmp");
 		scheduledInSeconds = 0;
 		controller = new TrafficReportController(new RequestRepository(),
 				new TrafficReportByIpService());
@@ -45,7 +46,7 @@ public class DailyTrafficReportByIpJobTaskTest {
 		service = new DailyTrafficReportByIpJobTask(controller, configuration);
 		service.run();
 		String actual = String.join(System.lineSeparator(),
-				Files.readAllLines(Path.of(reportPath)));
+				Files.readAllLines(reportPath));
 		String expected = String.join(System.lineSeparator(),
 				Files.readAllLines(ResourceLoader.getPath("reports/job/expected.json")));
 		assertEquals(expected, actual);
@@ -59,7 +60,7 @@ public class DailyTrafficReportByIpJobTaskTest {
 		service = new DailyTrafficReportByIpJobTask(controller, configuration);
 		service.run();
 		String actual = String.join(System.lineSeparator(),
-				Files.readAllLines(Path.of(reportPath)));
+				Files.readAllLines(reportPath));
 		String expected = String.join(System.lineSeparator(),
 				Files.readAllLines(ResourceLoader.getPath("reports/job/expected.csv")));
 		assertEquals(expected, actual);
@@ -69,13 +70,13 @@ public class DailyTrafficReportByIpJobTaskTest {
 	public void testReportAlreadyPresent() throws Exception {
 		OutputMode mode = OutputMode.CSV;
 		String expected = "expected";
-		Files.writeString(Path.of(reportPath), expected);//simulate content report, service won't do anything
+		Files.writeString(reportPath, expected);//simulate content report, service won't do anything
 		DailyTrafficReportByIpJobConf configuration = new DailyTrafficReportByIpJobConf(requestsPath, reportPath,
 				reportPathTmp, mode, scheduledInSeconds);
 		service = new DailyTrafficReportByIpJobTask(controller, configuration);
 		service.run();
 		String actual = String.join(System.lineSeparator(),
-				Files.readAllLines(Path.of(reportPath)));
+				Files.readAllLines(reportPath));
 		assertEquals(expected, actual);
 	}
 	
@@ -83,7 +84,7 @@ public class DailyTrafficReportByIpJobTaskTest {
 	@Test
 	public void testFailureWithoutException() throws Exception {
 		OutputMode mode = OutputMode.CSV;
-		URI requestsPath = null;
+		Path requestsPath = null;
 		DailyTrafficReportByIpJobConf configuration = new DailyTrafficReportByIpJobConf(requestsPath, reportPath,
 				reportPathTmp, mode, scheduledInSeconds);
 		service = new DailyTrafficReportByIpJobTask(controller, configuration);

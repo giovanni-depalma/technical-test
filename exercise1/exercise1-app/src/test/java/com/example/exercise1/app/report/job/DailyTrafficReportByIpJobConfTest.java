@@ -2,8 +2,7 @@ package com.example.exercise1.app.report.job;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
-import java.net.URI;
+import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +12,9 @@ public class DailyTrafficReportByIpJobConfTest {
 
 	@Test
 	public void testJsonOutput() throws Exception {
-		URI requestsPath = new File("/logfiles/requests.log").toURI();
-		URI reportPath = new File("/reports/ipaddr.json").toURI();
-		URI reportPathTmp = new File("/reports/ipaddr.tmp").toURI();
+		Path requestsPath = Path.of("/logfiles/requests.log");
+		Path reportPath = Path.of("/reports/ipaddr.json");
+		Path reportPathTmp = Path.of("/reports/ipaddr.tmp");
 		OutputMode mode = OutputMode.JSON;
 		int scheduledInSeconds = 1;
 		DailyTrafficReportByIpJobConf expected = new DailyTrafficReportByIpJobConf(requestsPath, reportPath, reportPathTmp, mode, scheduledInSeconds);
@@ -25,9 +24,9 @@ public class DailyTrafficReportByIpJobConfTest {
 	
 	@Test
 	public void testCsvOutput() throws Exception {
-		URI requestsPath = new File("/logfiles/requests.log").toURI();
-		URI reportPath = new File("/reports/ipaddr.csv").toURI();
-		URI reportPathTmp = new File("/reports/ipaddr.tmp").toURI();
+		Path requestsPath = Path.of("/logfiles/requests.log");
+		Path reportPath = Path.of("/reports/ipaddr.csv");
+		Path reportPathTmp = Path.of("/reports/ipaddr.tmp");
 		OutputMode mode = OutputMode.CSV;
 		int scheduledInSeconds = 1;
 		DailyTrafficReportByIpJobConf expected = new DailyTrafficReportByIpJobConf(requestsPath, reportPath, reportPathTmp, mode, scheduledInSeconds);
@@ -37,9 +36,9 @@ public class DailyTrafficReportByIpJobConfTest {
 	
 	@Test
 	public void testBasePathRelative() throws Exception {
-		URI requestsPath = new File("logfiles/requests.log").toURI();
-		URI reportPath = new File("reports/ipaddr.csv").toURI();
-		URI reportPathTmp = new File("reports/ipaddr.tmp").toURI();
+		Path requestsPath = Path.of("logfiles/requests.log");
+		Path reportPath = Path.of("reports/ipaddr.csv");
+		Path reportPathTmp = Path.of("reports/ipaddr.tmp");
 		OutputMode mode = OutputMode.CSV;
 		int scheduledInSeconds = 1;
 		DailyTrafficReportByIpJobConf expected = new DailyTrafficReportByIpJobConf(requestsPath, reportPath, reportPathTmp, mode, scheduledInSeconds);

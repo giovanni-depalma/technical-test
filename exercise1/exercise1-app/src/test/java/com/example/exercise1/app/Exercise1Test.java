@@ -1,12 +1,10 @@
 package com.example.exercise1.app;
 
-import java.io.File;
-import java.net.URI;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import com.example.exercise1.app.report.OutputMode;
 import com.example.exercise1.app.report.job.DailyTrafficReportByIpJobConf;
@@ -16,12 +14,14 @@ public class Exercise1Test {
 
 	private DailyTrafficReportByIpJobConf configuration;
 	
+	@TempDir
+	Path tempDir;
+	
 	@BeforeEach
 	private void init()  throws Exception{
-		URI requestsPath = ResourceLoader.getURI("reports/job/requests.log");
-		URI reportPath = File.createTempFile("reportPath", null).toURI();
-		URI reportPathTmp = File.createTempFile("reportPath", "tmp").toURI();
-		Files.deleteIfExists(Path.of(reportPath));
+		Path requestsPath = ResourceLoader.getPath("reports/job/requests.log");
+		Path reportPath = tempDir.resolve("reportPath");
+		Path reportPathTmp = tempDir.resolve("reportPath.tmp");
 		int scheduledInSeconds = 1;
 		OutputMode mode = OutputMode.JSON;
 		configuration = new DailyTrafficReportByIpJobConf(requestsPath, reportPath,
