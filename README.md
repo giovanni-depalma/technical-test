@@ -3,6 +3,7 @@
 The project contains following folders:
 
 - exercise1
+- exercise2
 
 ## Exercise1
 
@@ -66,3 +67,40 @@ main.report.dailyTrafficByIp.scheduledInSeconds=10
 - main.report.dailyTrafficByIp.requestPath path of requests to be processed
 - main.report.dailyTrafficByIp.outputMode possible values are JSON/CSV. If empty by default it will be CSV
 - main.report.dailyTrafficByIp.scheduledInSeconds fixed delay for checking of requests to be processed
+
+
+## Exercise2
+
+### Get Started Immediately
+In order to start the project  follow these simple instructions:
+
+- Go inside exercise2 folder
+- Run 'docker-compose build' from project folder
+- Run 'docker-compose up ' from project folder
+
+Launch Browser on page http://localhost:8080
+
+### Quick Overview
+The project uses the following stack:
+
+- nx as build system (https://nx.dev/)
+
+There are 2 modules
+
+- libs/math
+- apps-demo
+
+- Run 'npm install'
+
+#### libs/math
+
+It contains the solution.
+
+- Run 'npx nx test math' to run the test
+
+#### apps-demo
+
+Demo app where it is possible to perform the exercize 
+
+- Run 'npx nx serve' to run the demo app
+- Launch Browser on page http://localhost:4200
