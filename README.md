@@ -90,6 +90,8 @@ There are 2 modules
 - libs/math
 - apps-demo
 
+#### Prepare workspace
+
 - Run 'npm install'
 
 #### libs/math
