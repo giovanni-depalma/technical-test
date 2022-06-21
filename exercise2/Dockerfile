@@ -1,4 +1,4 @@
-FROM node:18-alpine as prepare
+FROM node:18-alpine3.16 as prepare
 WORKDIR /workspace
 COPY . .
 RUN npm ci

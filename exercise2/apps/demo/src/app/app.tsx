@@ -8,10 +8,12 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <StyledApp>
-      <div className="header">
-        <h1>Welcome to Demo Exercise2!</h1>
+      <div>
+        <h1>
+          Welcome to Demo Exercise2!
+        </h1>
       </div>
-      <div className="splash-container">
+      <div>
         <Factorial />
         <MultiplyBy />
       </div>

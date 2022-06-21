@@ -57,7 +57,7 @@ export function MultiplyBy(props: MultiplyByProps) {
         />
       </div>
       <div>
-        <label htmlFor="val2">Val2 {value1}</label>
+        <label htmlFor="val2">Val2 {value2}</label>
         <input
           type="range"
           name="val2"
@@ -67,7 +67,7 @@ export function MultiplyBy(props: MultiplyByProps) {
           defaultValue={value2}
         />
       </div>
-      <p>{result}</p>
+      <p>Result: {result}</p>
     </StyledMathUi>
   );
 }

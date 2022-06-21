@@ -9,7 +9,7 @@ const StyledMathUi = styled.div`
   & input[type='range'] {
     width: 400px;
   }
-  
+
   & label {
     display: block;
   }
@@ -38,7 +38,7 @@ export function Factorial(props: FactorialProps) {
         defaultValue={factorialOf}
         onChange={onChangeFactorial}
       />
-      <p>{result}</p>
+      <p>Result: {result}</p>
     </StyledMathUi>
   );
 }
