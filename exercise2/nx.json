@@ -21,7 +21,7 @@
           "test",
           "e2e"
         ],
-        "accessToken": "ZTI5YTNiZTgtOTdmOC00ZTgyLWE1OTctOTdiNmFlOTA1MTVmfHJlYWQtd3JpdGU="
+        "accessToken": "MDAxZmUxNWQtMWI0MS00NDJlLThlNmYtYjFmNjhhNWE5YTFlfHJlYWQtd3JpdGU="
       }
     }
   },
@@ -32,8 +32,21 @@
       ]
     }
   },
-  "workspaceLayout": {
-    "appsDir": "packages",
-    "libsDir": "packages"
-  }
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "demo"
 }

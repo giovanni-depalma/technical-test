@@ -4,7 +4,7 @@ import {
   sumByArray,
   multiplyBySumWithBigValue,
   factorial,
-} from './math-lib';
+} from './math';
 
 const FACT_10 = valueToArray('3628800');
 const FACT_17 = valueToArray('355687428096000');

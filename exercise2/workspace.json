@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "math-lib": "packages/math-lib"
+    "demo": "apps/demo",
+    "math": "libs/math"
   }
 }

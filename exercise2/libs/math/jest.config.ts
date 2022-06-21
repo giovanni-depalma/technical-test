@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'math-lib',
+  displayName: 'math',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -8,8 +8,8 @@ export default {
     },
   },
   transform: {
-    '^.+\\.[tj]s$': 'ts-jest',
+    '^.+\\.[tj]sx?$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/math-lib',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  coverageDirectory: '../../coverage/libs/math',
 };

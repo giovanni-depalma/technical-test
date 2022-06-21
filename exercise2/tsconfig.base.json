@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@exercise2/math-lib": ["packages/math-lib/src/index.ts"]
+      "@exercise2/math": ["libs/math/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
